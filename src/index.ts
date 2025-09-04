@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
+import { isCancel, text } from '@clack/prompts';
 import { Command } from 'commander';
-import { text, isCancel } from '@clack/prompts';
 import { handleChat, handleEdit } from './commands';
 import { startTUI } from './mode/tui';
 
@@ -16,11 +16,11 @@ program
         const prompt = await text({
           message: 'Enter your message (Ctrl+C to exit)',
         });
-        
+
         if (isCancel(prompt)) {
           process.exit(0);
         }
-        
+
         const result = await handleChat(prompt.toString());
         console.log(result);
       } catch (error) {
@@ -39,11 +39,11 @@ program
         const prompt = await text({
           message: 'Enter text to edit (Ctrl+C to exit)',
         });
-        
+
         if (isCancel(prompt)) {
           process.exit(0);
         }
-        
+
         const result = await handleEdit(prompt.toString());
         console.log(result);
       } catch (error) {

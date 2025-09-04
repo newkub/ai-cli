@@ -9,7 +9,7 @@ export interface OpenAIConfig extends Omit<ClientOptions, 'apiKey'> {
 }
 
 export function useOpenAI(config: OpenAIConfig) {
-  const apiKey = process.env.OPENAI_API_KEY;
+  const apiKey = Bun.env.OPENAI_API_KEY;
   
   if (!apiKey) {
     throw new Error('OPENAI_API_KEY is not defined in environment variables');
@@ -36,6 +36,7 @@ export function useOpenAI(config: OpenAIConfig) {
 
       return response.choices[0]?.message?.content || '';
     } catch (error) {
+      // Use Bun's native console for better performance
       console.error('OpenAI Error:', error instanceof Error ? error.message : error);
       throw error;
     }
