@@ -20,7 +20,7 @@ program
           process.exit(0);
         }
         
-        const result = await handleChat(prompt);
+        const result = await handleChat(prompt.toString());
         console.log(result);
       } catch (error) {
         console.error('Error:', error instanceof Error ? error.message : error);
@@ -43,7 +43,7 @@ program
           process.exit(0);
         }
         
-        const result = await handleEdit(prompt);
+        const result = await handleEdit(prompt.toString());
         console.log(result);
       } catch (error) {
         console.error('Error:', error instanceof Error ? error.message : error);
@@ -58,7 +58,7 @@ program
   .action(async (promptParts) => {
     try {
       const prompt = promptParts.join(' ');
-      const result = await handleChat(prompt);
+      const result = await handleChat(prompt.toString());
       console.log(result);
     } catch (error) {
       console.error('Error:', error instanceof Error ? error.message : error);
@@ -71,7 +71,7 @@ program
   .action(async (promptParts) => {
     try {
       const prompt = promptParts.join(' ');
-      const result = await handleEdit(prompt);
+      const result = await handleEdit(prompt.toString());
       console.log(result);
     } catch (error) {
       console.error('Error:', error instanceof Error ? error.message : error);

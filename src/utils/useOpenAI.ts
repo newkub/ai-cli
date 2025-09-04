@@ -1,5 +1,5 @@
 import { OpenAI } from 'openai';
-import { type ClientOptions } from 'openai';
+import type { ClientOptions } from 'openai';
 
 export interface OpenAIConfig extends Omit<ClientOptions, 'apiKey'> {
   model?: string;

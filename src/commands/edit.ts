@@ -14,7 +14,16 @@ export async function handleEdit(prompt: string): Promise<string> {
   const response = await openai.chat(prompt);
   
   s.stop('Done!');
-  return response;
+  
+  try {
+    const escapedResponse = JSON.stringify(response).slice(1, -1);
+    const process = Bun.spawn(['shiki', '-l', 'md', '-t', 'github-dark', escapedResponse]);
+    const output = await new Response(process.stdout).text();
+    return output;
+  } catch (error) {
+    console.error('Shiki formatting failed:', error);
+    return response;
+  }
 }
 
 export async function interactiveEdit() {
@@ -25,7 +34,17 @@ export async function interactiveEdit() {
   });
   
   while (true) {
-    const prompt = await text('Enter your prompt: ');
+    const prompt = await text({
+      message: 'Enter text to edit: ',
+      validate: (input) => {
+        if (typeof input !== 'string') return 'Please enter valid text';
+      }
+    });
+    
+    if (typeof prompt !== 'string') {
+      continue;
+    }
+    
     const s = spinner();
     s.start('Processing edit request');
     

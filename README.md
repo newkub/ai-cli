@@ -1,49 +1,55 @@
 # AI CLI Tool
 
-เครื่องมือ命令行สำหรับทำงานกับ AI โดยใช้ OpenAI API
+A command line tool for working with AI using OpenAI API
 
-## คุณสมบัติ
+## Features
 
-- สนทนากับ AI (`chat` command)
-- แก้ไขเนื้อหาด้วย AI (`edit` command)
+- Chat with AI (`chat` command)
+- Edit content with AI (`edit` command)
 
-## การติดตั้ง
+## Installation
 
-1. ติดตั้ง [Bun](https://bun.sh/)
-2. ติดตั้ง dependencies:
-```bash
-bun install
-```
-3. สร้างไฟล์ `.env` และกำหนดค่า OPENAI_API_KEY:
+### Package Managers
+
+| Manager | Install Command |
+|---------|----------------|
+| Bun | `bun install` |
+| npm | `npm install` |
+| pnpm | `pnpm install` |
+| yarn | `yarn install` |
+
+1. Install [Bun](https://bun.sh/) (recommended) or Node.js 18+
+2. Install dependencies using your preferred package manager
+3. Create `.env` file and set OPENAI_API_KEY:
 ```env
 OPENAI_API_KEY=your_api_key_here
 ```
 
-## การใช้งาน
+## Usage
 
-### คำสั่งสนทนา (chat)
+### Chat command
 ```bash
-bun run chat "ข้อความของคุณ"
+bun run chat "your message"
 ```
 
-### คำสั่งแก้ไข (edit)
+### Edit command
 ```bash
-bun run edit "ข้อความที่ต้องการแก้ไข"
+bun run edit "text to edit"
 ```
 
-## การพัฒนา
+## Development
 
-โครงสร้างโปรเจค:
+Project structure:
 ```
 src/
   commands/
-    chat.ts    # ฟังก์ชันการสนทนากับ AI
-    edit.ts    # ฟังก์ชันการแก้ไขด้วย AI
+    chat.ts    # AI chat functions
+    edit.ts    # AI edit functions
   utils/
-    useOpenAI.ts # ตัวช่วยสำหรับทำงานกับ OpenAI API
+    useOpenAI.ts # Helper for OpenAI API
 ```
 
-## ข้อกำหนด
+## Requirements
 
 - Node.js 18+
 - Bun
