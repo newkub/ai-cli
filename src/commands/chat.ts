@@ -15,15 +15,7 @@ export async function handleChat(prompt: string): Promise<string> {
   
   s.stop('Done!');
   
-  try {
-    const escapedResponse = JSON.stringify(response).slice(1, -1);
-    const process = Bun.spawn(['shiki', '-l', 'md', '-t', 'github-dark', escapedResponse]);
-    const output = await new Response(process.stdout).text();
-    return output;
-  } catch (error) {
-    console.error('Shiki formatting failed:', error);
-    return response;
-  }
+  return response;
 }
 
 export async function interactiveChat() {
