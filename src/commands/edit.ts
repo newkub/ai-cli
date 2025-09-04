@@ -1,5 +1,7 @@
-import { text, spinner } from '@clack/prompts';
+import { text, spinner, select } from '@clack/prompts';
 import { useOpenAI } from '../utils/useOpenAI';
+import { readFileSync, writeFileSync, existsSync } from 'fs';
+import { readdirSync } from 'fs';
 
 export async function handleFileEdit(filePath: string, prompt: string): Promise<string> {
   const s = spinner();
@@ -35,6 +37,19 @@ export async function handleFileEdit(filePath: string, prompt: string): Promise<
 }
 
 export async function handleEdit(prompt: string): Promise<string> {
+  // Check if user wants to edit a file in-place
+  const editMode = await select({
+    message: 'Select edit mode:',
+    options: [
+      { value: 'text', label: 'Text Edit' },
+      { value: 'file', label: 'In-File Edit' }
+    ]
+  });
+
+  if (editMode === 'file') {
+    return await handleInFileEdit(prompt);
+  }
+
   const s = spinner();
   s.start('Processing edit request');
   
@@ -49,6 +64,23 @@ export async function handleEdit(prompt: string): Promise<string> {
   s.stop('Done!');
   
   return response;
+}
+
+async function handleInFileEdit(prompt: string): Promise<string> {
+  // Get file path from user
+  const filePath = await text({
+    message: 'Enter file path to edit:'
+  });
+
+  if (typeof filePath !== 'string') {
+    return 'Edit cancelled';
+  }
+
+  if (!existsSync(filePath)) {
+    return `File not found: ${filePath}`;
+  }
+
+  return await handleFileEdit(filePath, prompt);
 }
 
 export async function interactiveEdit() {
