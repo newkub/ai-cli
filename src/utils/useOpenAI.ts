@@ -5,6 +5,7 @@ export interface OpenAIConfig extends Omit<ClientOptions, 'apiKey'> {
   model?: string;
   maxTokens?: number;
   temperature?: number;
+  systemMessage?: string;
 }
 
 export function useOpenAI(config: OpenAIConfig) {
@@ -21,9 +22,14 @@ export function useOpenAI(config: OpenAIConfig) {
 
   async function chat(prompt: string) {
     try {
+      const messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
+        ...(config.systemMessage ? [{ role: 'system', content: config.systemMessage } as const] : []),
+        { role: 'user', content: prompt } as const
+      ];
+      
       const response = await openai.chat.completions.create({
         model: config.model || 'gpt-3.5-turbo',
-        messages: [{ role: 'user', content: prompt }],
+        messages,
         max_tokens: config.maxTokens,
         temperature: config.temperature
       });
