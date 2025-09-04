@@ -2,6 +2,7 @@
 import { Command } from 'commander';
 import { text, isCancel } from '@clack/prompts';
 import { handleChat, handleEdit } from './commands';
+import { startTUI } from './mode/tui';
 
 const program = new Command();
 
@@ -48,6 +49,18 @@ program
       } catch (error) {
         console.error('Error:', error instanceof Error ? error.message : error);
       }
+    }
+  });
+
+// TUI mode
+program
+  .command('tui')
+  .description('Terminal UI mode with AI chat and Git UI panels')
+  .action(async () => {
+    try {
+      startTUI();
+    } catch (error) {
+      console.error('Error starting TUI:', error instanceof Error ? error.message : error);
     }
   });
 
