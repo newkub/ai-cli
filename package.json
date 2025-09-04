@@ -6,7 +6,8 @@
     "dev": "bun run src/index.ts",
     "lint": "biome lint --write && bunx tsc --noEmit",
     "format": "biome format --write",
-    "prepare": "bunx lefthook install"
+    "prepare": "bunx lefthook install",
+    "release": "release-it"
   },
   "dependencies": {
     "@clack/prompts": "^0.11.0",
@@ -16,6 +17,7 @@
   "devDependencies": {
     "@biomejs/biome": "^2.2.2",
     "@shikijs/cli": "^3.12.2",
-    "@types/bun": "^1.2.21"
+    "@types/bun": "^1.2.21",
+    "release-it": "19.0.4"
   }
 }
