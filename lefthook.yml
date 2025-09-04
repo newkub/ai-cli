@@ -1,0 +1,25 @@
+# EXAMPLE USAGE:
+#
+#   Refer for explanation to following link:
+#   https://lefthook.dev/configuration/
+#
+pre-commit:
+  commands:
+    lint:
+      run: bun run lint
+
+pre-push:
+  commands:
+    test:
+      run: bun test
+
+commit-msg:
+  commands:
+    check-message:
+      run: echo "Checking commit message..."
+      glob: "*"
+
+# ตัวอย่าง hooks อื่นๆ ที่อาจต้องการ
+# post-checkout:
+# post-merge:
+# post-rewrite:
